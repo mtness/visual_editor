@@ -276,7 +276,9 @@ export class VeAppearanceMenu extends LitElement {
       display: flex;
       align-items: center;
       gap: 2px;
-      padding-inline: 4px;
+      margin-inline-start: 4px;
+      padding-inline-start: 6px;
+      border-inline-start: 1px solid color-mix(in srgb, var(--ve-button-color, #d9d9d9) 30%, transparent);
     }
 
     .field {
@@ -289,27 +291,28 @@ export class VeAppearanceMenu extends LitElement {
       align-items: center;
       gap: 0.4em;
       font: inherit;
-      color: #d9d9d9;
+      color: var(--ve-button-color, #d9d9d9);
       background: transparent;
       border: 1px solid transparent;
-      border-radius: 0.2em;
+      border-radius: 2px;
       padding: 0.2em 0.5em;
       white-space: nowrap;
       cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
     }
 
     .trigger:hover,
+    .item:hover,
     .field.open .trigger {
-      border-color: #d9d9d9;
-      background-color: #212121;
+      background-color: color-mix(in srgb, var(--ve-accent, #5432fe) 28%, transparent);
     }
 
     .trigger:focus-visible,
     .item:focus-visible {
-      border-color: #d9d9d9;
-      background-color: #212121;
-      outline: 2px solid #5432fe;
-      outline-offset: 2px;
+      border-color: var(--ve-button-color, #d9d9d9);
+      background-color: color-mix(in srgb, var(--ve-accent, #5432fe) 28%, transparent);
+      outline: 2px solid var(--ve-accent, #5432fe);
+      outline-offset: 1px;
     }
 
     /* the icons of the values, the size of icons of the default size follows the font size */
@@ -317,7 +320,7 @@ export class VeAppearanceMenu extends LitElement {
       flex: none;
       font-size: 18px;
       border-radius: 2px;
-      background: rgba(217, 217, 217, 0.14);
+      background: color-mix(in srgb, var(--ve-button-color, #d9d9d9) 14%, transparent);
     }
 
     .item .icon {
@@ -330,8 +333,8 @@ export class VeAppearanceMenu extends LitElement {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #5432fe;
-      box-shadow: 0 0 0 1px rgba(217, 217, 217, 0.6);
+      background: var(--ve-accent, #5432fe);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--ve-button-color, #d9d9d9) 60%, transparent);
     }
 
     .menu {
@@ -345,10 +348,10 @@ export class VeAppearanceMenu extends LitElement {
       max-height: 50vh;
       overflow-y: auto;
       padding: 4px;
-      background: #171717;
-      color: #d9d9d9;
-      border: 1px solid #d9d9d9;
-      border-radius: 6px;
+      background: var(--ve-button-bg, #171717);
+      color: var(--ve-button-color, #d9d9d9);
+      border-radius: var(--ve-button-radius, 3px);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--ve-button-color, #d9d9d9) 40%, transparent), 0 4px 14px rgba(0, 0, 0, 0.35);
     }
 
     .menu.align-end {
@@ -376,11 +379,6 @@ export class VeAppearanceMenu extends LitElement {
 
     .item[aria-checked="true"]::before {
       content: '✓';
-    }
-
-    .item:hover {
-      border-color: #d9d9d9;
-      background-color: #212121;
     }
   `;
 }

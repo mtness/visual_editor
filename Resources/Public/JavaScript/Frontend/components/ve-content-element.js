@@ -378,7 +378,7 @@ export class VeContentElement extends LitElement {
               <typo3-backend-contextual-record-edit-trigger
                 url="${this.editContentContextualUrl}"
                 edit-url="${this.editContentUrl}"
-                class="button"
+                class="button end"
                 title="${editLabel}"
                 aria-label="${editLabel}"
               >
@@ -386,7 +386,7 @@ export class VeContentElement extends LitElement {
               </typo3-backend-contextual-record-edit-trigger>
             `
             : html`
-              <a class="button" tabindex="0" type="button" href="${this.editContentUrl}" @click="${this._openEdit}" title="${editLabel}" aria-label="${editLabel}">
+              <a class="button end" tabindex="0" type="button" href="${this.editContentUrl}" @click="${this._openEdit}" title="${editLabel}" aria-label="${editLabel}">
                 <ve-icon name="actions-open"></ve-icon>
               </a>
             `
@@ -516,6 +516,7 @@ export class VeContentElement extends LitElement {
 
     .action-bar {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       opacity: 0;
       pointer-events: none;
@@ -524,6 +525,9 @@ export class VeContentElement extends LitElement {
       /* sits on the top edge of the frame */
       bottom: calc(100% - var(--ve-frame-top, 0px));
       left: calc(var(--ve-frame-left, 0px) - 1px);
+      /* at least as wide as the frame, it grows if the buttons need more room */
+      box-sizing: border-box;
+      min-width: calc(var(--ve-frame-width, 0px) + 2px);
       background: var(--ve-button-bg, #f7f7f8);
       backdrop-filter: blur(8px);
       color: var(--ve-button-color, #181718);
@@ -539,7 +543,7 @@ export class VeContentElement extends LitElement {
       /* the inset line separates the bar from the page in light and dark mode */
       box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ve-button-color, #181718) 40%, transparent), 0 0 6px rgba(0, 0, 0, 0.125);
       z-index: 10100;
-      font-size: 13px;
+      font-size: var(--ve-font-size, 14px);
       line-height: 1.4;
 
       transition: opacity 0.2s ease;
@@ -597,6 +601,11 @@ export class VeContentElement extends LitElement {
       cursor: pointer;
 
       transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    /* the edit button and the buttons after it sit at the end of the bar, like in the page module */
+    .button.end {
+      margin-inline-start: auto;
     }
 
     /* the icons of the buttons are as big as the ones of the layout module */

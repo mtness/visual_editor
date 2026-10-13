@@ -16,6 +16,11 @@ const BACKEND_TOKENS = {
   '--ve-danger': '--typo3-state-danger-bg',
 };
 
+// The font size of the buttons and labels of the toolbar of the module, the action bars use it for their texts.
+const BACKEND_FONT_SIZE_TOKENS = {
+  '--ve-font-size': '--typo3-component-font-size',
+};
+
 // These are drawn on the website itself, whose background does not follow the backend color scheme.
 // The light variant has enough contrast on light pages and on dark pages (with the white halo).
 const PAGE_TOKENS = ['--ve-accent', '--ve-success'];
@@ -43,6 +48,15 @@ function resolveBackendColors(backendDocument) {
       probe.style.colorScheme = PAGE_TOKENS.includes(property) ? 'light' : '';
       probe.style.color = `var(${token})`;
       const resolved = backendDocument.defaultView.getComputedStyle(probe).color;
+      if (resolved) {
+        colors[property] = resolved;
+      }
+    }
+
+    for (const [property, token] of Object.entries(BACKEND_FONT_SIZE_TOKENS)) {
+      probe.style.fontSize = '';
+      probe.style.fontSize = `var(${token})`;
+      const resolved = backendDocument.defaultView.getComputedStyle(probe).fontSize;
       if (resolved) {
         colors[property] = resolved;
       }
