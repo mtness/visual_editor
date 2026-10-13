@@ -11,7 +11,6 @@ use TYPO3\CMS\Core\Domain\Record;
 use TYPO3\CMS\Core\Domain\RecordFactory;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Schema\Capability\TcaSchemaCapability;
-use TYPO3\CMS\Core\Schema\TcaSchemaFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\TagBuilder;
 use UnexpectedValueException;
@@ -26,7 +25,7 @@ final readonly class ContentElementWrapperService
     public function __construct(
         private RecordFactory $recordFactory,
         private EditModeService $editModeService,
-        private TcaSchemaFactory $tcaSchema,
+        private RecordSchemaService $recordSchema,
         private LocalizationService $localizationService,
         private AppearanceFieldsService $appearanceFieldsService,
         private Typo3Version $typo3Version,
@@ -61,7 +60,7 @@ final readonly class ContentElementWrapperService
             throw new UnexpectedValueException('Record array must be a ' . Record::class, 1772465047);
         }
 
-        $schema = $this->tcaSchema->get($record->getFullType());
+        $schema = $this->recordSchema->getSchema($record);
 
         $hiddenFieldType = $schema->getCapability(TcaSchemaCapability::RestrictionDisabledField);
         $hiddenFieldName = $hiddenFieldType->getFieldName();
