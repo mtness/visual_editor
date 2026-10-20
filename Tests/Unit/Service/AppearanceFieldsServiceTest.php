@@ -15,7 +15,6 @@ use TYPO3\CMS\Core\Schema\TcaSchemaFactory;
 use TYPO3\CMS\VisualEditor\Service\AppearanceFieldsService;
 use TYPO3\CMS\VisualEditor\Service\EditModeService;
 use TYPO3\CMS\VisualEditor\Service\LocalizationService;
-use TYPO3\CMS\VisualEditor\Service\RecordSchemaService;
 
 final class AppearanceFieldsServiceTest extends TestCase
 {
@@ -262,7 +261,7 @@ final class AppearanceFieldsServiceTest extends TestCase
         $iconRegistry->method('isRegistered')->willReturnCallback(static fn(string $identifier): bool => $identifier === 'column-page');
 
         return new AppearanceFieldsService(
-            new RecordSchemaService($this->createStub(TcaSchemaFactory::class)),
+            $this->createStub(TcaSchemaFactory::class),
             // final class that is not used by the tested methods
             (new ReflectionClass(EditModeService::class))->newInstanceWithoutConstructor(),
             new LocalizationService(),

@@ -10,6 +10,7 @@ use TYPO3\CMS\Core\Domain\Record;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Schema\Field\FieldTranslationBehaviour;
 use TYPO3\CMS\Core\Schema\Field\StaticSelectFieldType;
+use TYPO3\CMS\Core\Schema\TcaSchemaFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageInformation;
 
@@ -43,7 +44,7 @@ final readonly class AppearanceFieldsService
     ];
 
     public function __construct(
-        private RecordSchemaService $recordSchema,
+        private TcaSchemaFactory $tcaSchema,
         private EditModeService $editModeService,
         private LocalizationService $localizationService,
         private IconRegistry $iconRegistry,
@@ -68,7 +69,7 @@ final readonly class AppearanceFieldsService
             return [];
         }
 
-        $schema = $this->recordSchema->getSchema($record);
+        $schema = $this->tcaSchema->get($record->getFullType());
         $isTranslation = (int)$record->getLanguageInfo()?->getTranslationParent() > 0;
 
         $fields = [];

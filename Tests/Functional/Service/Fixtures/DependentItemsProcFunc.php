@@ -27,7 +27,7 @@ final class DependentItemsProcFunc
 
         $params['items'] = array_values(array_filter(
             $params['items'],
-            static fn($item): bool => !in_array((string)$item['value'], ['large', 'extra-large'], true),
+            static fn(array $item): bool => !in_array((string)$item['value'], ['large', 'extra-large'], true),
         ));
     }
 }
