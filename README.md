@@ -223,7 +223,7 @@ With `adoptParent="{false}"` of `f:mark.contentArea` the parent element stays as
 
 *TYPO3 v14 only.* The action bar of a content element offers select fields of the record as buttons, for example the frame class. A click opens the options like the select in the edit form of the backend. A change is shown immediately and is saved with the other changes.
 
-By default these fields of `tt_content` are offered: `frame_class`, `space_before_class`, `space_after_class`.
+By default these fields of `tt_content` are offered: `header_layout`, `frame_class`, `space_before_class`, `space_after_class`.
 
 You can add fields, or remove a default by prefixing it with `-`, in the page TSconfig:
 

@@ -52,17 +52,17 @@ final class AppearanceFieldsServiceTest extends FunctionalTestCase
     {
         yield 'defaults without page TSconfig' => [
             'contentUid' => 1,
-            'expectedNames' => ['frame_class', 'space_before_class', 'space_after_class'],
+            'expectedNames' => ['header_layout', 'frame_class', 'space_before_class', 'space_after_class'],
         ];
 
         yield 'page TSconfig adds and removes fields' => [
             'contentUid' => 2,
-            'expectedNames' => ['frame_class', 'layout'],
+            'expectedNames' => ['header_layout', 'frame_class', 'layout'],
         ];
 
         yield 'a field that is disabled in the form is not offered' => [
             'contentUid' => 4,
-            'expectedNames' => ['space_before_class', 'space_after_class'],
+            'expectedNames' => ['header_layout', 'space_before_class', 'space_after_class'],
         ];
     }
 
@@ -73,7 +73,7 @@ final class AppearanceFieldsServiceTest extends FunctionalTestCase
 
         $fields = $this->get(AppearanceFieldsService::class)->getFields($record, $row, $request);
 
-        self::assertSame('ruler-before', $fields[0]['value']);
+        self::assertSame('ruler-before', array_column($fields, 'value', 'name')['frame_class']);
     }
 
     /**
@@ -99,12 +99,12 @@ final class AppearanceFieldsServiceTest extends FunctionalTestCase
     {
         yield 'default language' => [
             'contentUid' => 1,
-            'expectedNames' => ['frame_class', 'space_before_class', 'space_after_class'],
+            'expectedNames' => ['header_layout', 'frame_class', 'space_before_class', 'space_after_class'],
         ];
 
         yield 'translation' => [
             'contentUid' => 3,
-            'expectedNames' => ['space_before_class', 'space_after_class'],
+            'expectedNames' => ['header_layout', 'space_before_class', 'space_after_class'],
         ];
     }
 

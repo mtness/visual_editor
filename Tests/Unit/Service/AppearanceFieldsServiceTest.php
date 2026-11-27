@@ -36,37 +36,42 @@ final class AppearanceFieldsServiceTest extends TestCase
     {
         yield 'nothing configured falls back to the defaults' => [
             'pageTsConfig' => [],
-            'expected' => ['frame_class', 'space_before_class', 'space_after_class'],
+            'expected' => ['header_layout', 'frame_class', 'space_before_class', 'space_after_class'],
         ];
 
         yield 'configured fields are added to the defaults, trimmed and in order' => [
             'pageTsConfig' => ['mod.' => ['web_edit.' => ['appearanceFields.' => ['tt_content' => ' grid_class ,grid_class_position']]]],
-            'expected' => ['frame_class', 'space_before_class', 'space_after_class', 'grid_class', 'grid_class_position'],
+            'expected' => ['header_layout', 'frame_class', 'space_before_class', 'space_after_class', 'grid_class', 'grid_class_position'],
         ];
 
         yield 'duplicates are removed' => [
             'pageTsConfig' => ['mod.' => ['web_edit.' => ['appearanceFields.' => ['tt_content' => 'grid_class, frame_class, grid_class']]]],
-            'expected' => ['frame_class', 'space_before_class', 'space_after_class', 'grid_class'],
+            'expected' => ['header_layout', 'frame_class', 'space_before_class', 'space_after_class', 'grid_class'],
         ];
 
         yield 'other tables are ignored' => [
             'pageTsConfig' => ['mod.' => ['web_edit.' => ['appearanceFields.' => ['pages' => 'layout']]]],
-            'expected' => ['frame_class', 'space_before_class', 'space_after_class'],
+            'expected' => ['header_layout', 'frame_class', 'space_before_class', 'space_after_class'],
         ];
 
         yield 'a default can be removed' => [
             'pageTsConfig' => ['mod.' => ['web_edit.' => ['appearanceFields.' => ['tt_content' => '-space_before_class, -space_after_class']]]],
-            'expected' => ['frame_class'],
+            'expected' => ['header_layout', 'frame_class'],
+        ];
+
+        yield 'the header layout default can be removed' => [
+            'pageTsConfig' => ['mod.' => ['web_edit.' => ['appearanceFields.' => ['tt_content' => '-header_layout']]]],
+            'expected' => ['frame_class', 'space_before_class', 'space_after_class'],
         ];
 
         yield 'a removed field that is not known changes nothing' => [
             'pageTsConfig' => ['mod.' => ['web_edit.' => ['appearanceFields.' => ['tt_content' => 'grid_class, -unknown']]]],
-            'expected' => ['frame_class', 'space_before_class', 'space_after_class', 'grid_class'],
+            'expected' => ['header_layout', 'frame_class', 'space_before_class', 'space_after_class', 'grid_class'],
         ];
 
         yield 'a configured field is removed again by a later entry' => [
             'pageTsConfig' => ['mod.' => ['web_edit.' => ['appearanceFields.' => ['tt_content' => 'grid_class, -grid_class']]]],
-            'expected' => ['frame_class', 'space_before_class', 'space_after_class'],
+            'expected' => ['header_layout', 'frame_class', 'space_before_class', 'space_after_class'],
         ];
     }
 

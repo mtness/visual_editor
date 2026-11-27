@@ -40,7 +40,7 @@ final readonly class AppearanceFieldsService
      * @var array<string, list<string>>
      */
     private const DEFAULT_FIELDS = [
-        'tt_content' => ['frame_class', 'space_before_class', 'space_after_class'],
+        'tt_content' => ['header_layout', 'frame_class', 'space_before_class', 'space_after_class'],
     ];
 
     public function __construct(
